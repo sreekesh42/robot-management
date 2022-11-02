@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Robot Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+
+    <script th:src="@{/main.js}"></script>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+
+    <head>
+<body ng-app="RobotManagement" ng-controller="RobotController">
+<h3>
+    Robot Management
+</h3>
+<form ng-submit="submitRobot()">
+    <table border="0">
+        <tr>
+            <td>Robot Id</td>
+            <td><input id="robotId" type="text" ng-model="robotForm.robot_id" /></td>
+        </tr>
+        <tr>
+            <td>Robot Name</td>
+            <td><input type="text" ng-model="robotForm.name"  /></td>
+        </tr>
+        <tr>
+            <td>Year of manufacture</td>
+            <td><input type="number" ng-model="robotForm.year"  /></td>
+        </tr>
+        <tr>
+            <td>Weight</td>
+            <td><input type="number" ng-model="robotForm.mass"  /></td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td><input type="text" ng-model="robotForm.color"  /></td>
+        </tr>
+        <tr>
+            <td>Functions</td>
+            <td>    <select multiple style="width: 100%"
+                            ng-options="e as e for e in functions track by e"
+                            ng-model="robotForm.functions">
+            </select></td>
+        </tr>
+        <tr>
+            <td>Lifecycle Phase</td>
+            <td><select ng-model="robotForm.phase" ng-options="x for x in phases" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="blue-button" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br/>
+<a class="create-button" ng-click="clearRobot()">Clear Robot Details</a>
+<table border="1">
+    <tr>
+        <th>Robot Id</th>
+        <th>Robot Name</th>
+        <th>Year</th>
+        <th>Weight</th>
+        <th>Color</th>
+        <th>Functions</th>
+        <th>Phase</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <!-- $scope.robots -->
+    <tr ng-repeat="robot in robots">
+        <td> {{ robot.robot_id }}</td>
+        <td> {{ robot.name }}</td>
+        <td >{{ robot.year }}</td>
+        <td >{{ robot.mass }}</td>
+        <td >{{ robot.color }}</td>
+        <td >{{ robot.functions }}</td>
+        <td >{{ robot.phase }}</td>
+        <td>
+            <a ng-click="editRobot(robot)" class="edit-button">Edit</a>
+        </td>
+        <td>
+            <a ng-click="deleteRobot(robot)" class="delete-button">Delete</a>
+        </td>
+    </tr>
+</table>
+<a class="create-button" ng-click="getRobotCountPerPhase()">Refresh robot count per phase</a>
+<table border="1">
+    <tr>
+        <th>Phase</th>
+        <th>Robot Count</th>
+    </tr>
+    <!-- $scope.robotsperphase -->
+    <tr ng-repeat="robot in robotsperphase">
+        <td >{{ robot.phase }}</td>
+        <td >{{ robot.count }}</td>
+    </tr>
+</table>
+</body>
+</html>
